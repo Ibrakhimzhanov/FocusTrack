@@ -4,7 +4,7 @@ import { PAGE_PROGRESS } from '../constants'
 </script>
 <template>
   <a :href="`#${PAGE_PROGRESS}`" class="text-sm">
-    <div v-if="true" class="flex items-center gap-1">
+    <div v-if="false" class="flex items-center gap-1">
       Day complete!
       <CheckCircleIcon class="h-7 text-green-500" />
     </div>

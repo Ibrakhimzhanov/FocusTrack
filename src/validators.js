@@ -31,6 +31,16 @@ export function isNumberOrNull(value) {
 function isSelectOptionValid({ value, label }) {
   return isNumber(value) && isString(label)
 }
+export function validateActivities(activities) {
+  return activities.every(isActivityValid)
+}
+export function isActivityValid(activity) {
+  return isNotEmptyString(activity)
+}
+
+function isNotEmptyString(value) {
+  return isString(value) && value.length > 0
+}
 
 function isBetween(value, start, end) {
   return value >= start && value <= end
