@@ -4,7 +4,7 @@ const props = defineProps({
   hour: {
     required: true,
     type: Number,
-    validator: isHourValid
+validator: isHourValid
   }
 })
 const classes = [

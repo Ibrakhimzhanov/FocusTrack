@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE } from './constants'
+import { PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE, ACTIVITIES_TYPE_LIST } from './constants'
 import { normalizePageHash, generateTimelineItems } from './functions'
 import TheHeader from './components/TheHeader.vue'
 import TheNav from './components/TheNav.vue'
@@ -12,7 +12,6 @@ const currentPage = ref(normalizePageHash())
 
 const timelineItems = generateTimelineItems()
 
-const activities = ['Coding', 'Reading', 'Traning']
 function goTo(page) {
   currentPage.value = page
 }
@@ -23,7 +22,7 @@ function goTo(page) {
   <main class="flex flex-grow flex-col">
     <TheTimeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
-    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
+    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="ACTIVITIES_TYPE_LIST" />
   </main>
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />
 </template>

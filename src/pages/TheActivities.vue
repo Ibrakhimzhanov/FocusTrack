@@ -13,7 +13,12 @@ defineProps({
 <template>
   <div>
     <ul class="divide-y">
-      <ActivityItem v-for="activity in activities" :key="activity" :activity="activity" />
+      <ActivityItem
+        class="capitalize"
+        v-for="activity in activities"
+        :key="activity"
+        :activity="activity"
+      />
     </ul>
   </div>
 </template>
