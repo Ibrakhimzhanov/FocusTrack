@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { isSelectValueValid, isUndefinedOrNull, validateSelectOptions } from '../validators'
 import { computed } from 'vue'
 import { BUTTON_TYPE_NEUTRAL } from '../constants'
+import { normalizeSelectValue } from '../functions'
 
 const props = defineProps({
   selected: [String, Number],
@@ -25,7 +26,7 @@ const emit = defineEmits({
 const isNotSelected = computed(() => isUndefinedOrNull(props.selected))
 
 function select(value) {
-  emit('select', value)
+  emit('select', normalizeSelectValue(value))
 }
 </script>
 <template>

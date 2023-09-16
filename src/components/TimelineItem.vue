@@ -1,7 +1,8 @@
 <script setup>
+import { NULLABLE_ACTIVITY } from '../constants'
 import {
   isActivityValid,
-  isNull,
+  isHourValid,
   isTimelineItemValid,
   validateActivities,
   validateSelectOptions
@@ -29,13 +30,16 @@ const props = defineProps({
 })
 
 const emit = defineEmits({
-  selectActivity(activity) {
-    return isNull(activity) || isActivityValid(activity)
-  }
+  selectActivity: isActivityValid,
+  scrollToHour: isHourValid
 })
 
 function selectActivity(id) {
-  emit('selectActivity', props.activities.find((activity) => activity.id === id) || null)
+  emit('selectActivity', findActivityById(id))
+}
+
+function findActivityById(id) {
+  return props.activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
 }
 </script>
 <template>
@@ -46,7 +50,10 @@ function selectActivity(id) {
       :options="activitySelectOptions"
       @select="selectActivity"
     />
-    <TimelineStopwatch :seconds="timelineItem.seconds" />
-    <TimelineHour :hour="timelineItem.hour" />
+    <TimelineStopwatch :seconds="timelineItem.activitySeconds" :hour="timelineItem.hour" />
+    <TimelineHour
+      :hour="timelineItem.hour"
+      @click.prevent="emit('scrollToHour', timelineItem.hour)"
+    />
   </li>
 </template>
