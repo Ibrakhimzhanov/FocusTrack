@@ -73,6 +73,7 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
       :activities="activities"
       @create-activity="createActivity"
       @delete-activity="deleteActivity"
+      :timeline-items="timelineItems"
       @set-activity-seconds-to-complete="setActivitySecondsToComplete"
     />
   </main>
