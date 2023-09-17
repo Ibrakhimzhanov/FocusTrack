@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, provide, ref } from 'vue'
 import { PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE } from './constants'
 import {
   normalizePageHash,
@@ -12,6 +12,8 @@ import TheNav from './components/TheNav.vue'
 import TheActivities from './pages/TheActivities.vue'
 import TheTimeline from './pages/TheTimeline.vue'
 import TheProgress from './pages/TheProgress.vue'
+
+provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 
 const currentPage = ref(normalizePageHash())
 
@@ -69,7 +71,6 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
       :current-page="currentPage"
       ref="timeline"
       @set-timeline-item-activity="setTimelineItemActivity"
-      @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"
     />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
     <TheActivities
