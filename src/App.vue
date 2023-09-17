@@ -13,8 +13,6 @@ import TheActivities from './pages/TheActivities.vue'
 import TheTimeline from './pages/TheTimeline.vue'
 import TheProgress from './pages/TheProgress.vue'
 
-provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
-
 const currentPage = ref(normalizePageHash())
 
 const activities = ref(generateActivities())
@@ -58,6 +56,8 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
 function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
   timelineItem.activitySeconds += activitySeconds
 }
+provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+provide('timelineItems', timelineItems.value)
 </script>
 
 <template>
@@ -78,7 +78,6 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
       :activities="activities"
       @create-activity="createActivity"
       @delete-activity="deleteActivity"
-      :timeline-items="timelineItems"
       @set-activity-seconds-to-complete="setActivitySecondsToComplete"
     />
   </main>
