@@ -7,7 +7,7 @@ const props = defineProps(['index', 'activity'])
 const timeProgress = ['03:00 / 30:00', '15:00 / 30:00', '21:00 / 30:00', '30:00 / 30:00'][props.index]
 
 const progress = computed(() => getActivityProgress(props.activity))
-</script>
+</script>  
 <template>
    <li class="flex flex-col gap-1 p-4">
       <div class="truncate text-xl">{{ activity.name }}</div>
