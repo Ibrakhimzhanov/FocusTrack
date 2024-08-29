@@ -27,8 +27,8 @@ function hasActivity(timelineItem, activity) {
 function generateTimelineItems() {
   return [...Array(HOUR_IN_DAY).keys()].map((hour) => ({
     hour,
-    activityId: [0, 1, 2, 3, 4].includes(hour) ? activities.value[hour % 3].id : null,
-    activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
+    activityId: null, //[0, 1, 2, 3, 4].includes(hour) ? activities.value[hour % 3].id : null,
+    activitySeconds: 0 //[0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
   }))
 }
 
@@ -38,7 +38,7 @@ export function getTotalActivitySeconds(activity) {
   .reduce((totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds), 0)
 }
 
-export function scrollToCurrentHour(isSmooth = true) {
+export function scrollToCurrentHour(isSmooth = false) {
   scrollToHour(currentHour(), isSmooth)
 }
 

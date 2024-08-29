@@ -1,7 +1,12 @@
 import { BUTTON_TYPES, HOUR_IN_DAY, MIDNIGHT_HOUR, NAV_ITEMS } from './constants'
+import { ICONS } from './icons'
 
 export function isPageValid(page) {
   return NAV_ITEMS.some(navItems => navItems.page === page)
+}
+
+export function isIconValid(icon) {
+  return Object.keys(ICONS).includes(icon)
 }
 
 export function isNavItemValid(navItem) {
@@ -60,7 +65,7 @@ export function isNumber(value) {
 function isSelectOptionValid({ value, label }) {
   return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
 }
-function isNotEmptyString(value) {
+export function isNotEmptyString(value) {
   return isString(value) && value.length > 0
 }
 
