@@ -4,9 +4,9 @@ import BaseButton from './BaseButton.vue'
 import BaseSelect from './BaseSelect.vue'
 import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '../constants'
 import { isActivityValid } from '../validators'
-import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue'
+import RemainingActivitySeconds from './RemainingActivitySeconds.vue'
 import { deleteActivity, updateActivity } from '../activities'
-import { resetTimelineItemActivities } from '../timeline-items'
+import { resetTimelineItemActivities, timelineItems } from '../timeline-items'
 import BaseIcon from './BaseIcon.vue'
 import { ICON_TRASH } from '../icons'
 defineProps({
@@ -18,7 +18,7 @@ defineProps({
 })
 
 function deleteAndResetActivity(activity) {
-  resetTimelineItemActivities(activity)
+  resetTimelineItemActivities(timelineItems.value, activity)
   deleteActivity(activity)
 }
 
@@ -39,7 +39,7 @@ function deleteAndResetActivity(activity) {
         :selected="activity.secondsToComplete || null"
         @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
       />
-      <ActivitySecondsToComplete v-if="activity.secondsToComplete" :activity="activity" />
+      <RemainingActivitySeconds v-if="activity.secondsToComplete" :activity="activity" />
     </div>
   </li>
 </template>

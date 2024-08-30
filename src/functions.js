@@ -12,6 +12,11 @@ import { isNull, isPageValid } from './validators'
 export function currentHour() {
   return new Date().getHours()
 } 
+
+export function formatSecondsWithSing(seconds) {
+  return `${seconds >= 0 ? '+' : '-'}${formatSeconds(seconds)}`
+}
+
 export function formatSeconds(seconds) {
   const date = new Date()
 
