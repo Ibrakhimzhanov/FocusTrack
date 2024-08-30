@@ -1,4 +1,4 @@
-import { BUTTON_TYPES, HOUR_IN_DAY, MIDNIGHT_HOUR, NAV_ITEMS } from './constants'
+import { BUTTON_TYPES, HOURS_IN_DAY, MIDNIGHT_HOUR, NAV_ITEMS } from './constants'
 import { ICONS } from './icons'
 
 export function isPageValid(page) {
@@ -25,7 +25,7 @@ export function isTimelineItemValid({ hour }) {
 }
 
 export function isHourValid(hour) {
-  return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOUR_IN_DAY - 1)
+  return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1)
 }
 
 export function validateSelectOptions(options) {

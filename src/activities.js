@@ -4,8 +4,8 @@ import { id } from './functions'
 
 export const activities = ref(generateActivities())
 
-export const trackedActivities = computed(() => 
-activities.value.filter(({secondsToComplete}) => secondsToComplete)
+export const trackedActivities = computed(() =>
+  activities.value.filter(({ secondsToComplete }) => secondsToComplete)
 )
 
 export const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
@@ -14,9 +14,21 @@ export function deleteActivity(activity) {
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-export function calculateActivityCompletionPercentage({ secondsToComplete }, trackedSeconds) { 
-  return Math.floor((trackedSeconds * HUNDRED_PERCENT) / secondsToComplete)
+export function calculateActivityCompletionPercentage({ secondsToComplete }, trackedActivitySeconds) {
+  return Math.floor((trackedActivitySeconds * HUNDRED_PERCENT) / secondsToComplete)
 }
+
+export function calculateCompletionPercentage(totaltrackedActivitySeconds) {
+  return Math.floor((totaltrackedActivitySeconds * HUNDRED_PERCENT) / totalActivitySecondsToComplete.value)
+}
+
+
+
+const totalActivitySecondsToComplete = computed(() => {
+  return trackedActivities.value
+    .map(({ secondsToComplete }) => secondsToComplete)
+    .reduce((total, seconds) => total + seconds, 0)
+})
 
 export function updateActivity(activity, fields) {
   return Object.assign(activity, fields)
