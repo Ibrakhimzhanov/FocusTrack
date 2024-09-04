@@ -8,6 +8,7 @@ import { currentHour, formatSeconds } from '../functions'
 import { isTimelineItemValid } from '../validators'
 import { useStopwatch } from '../composables/stopwatch'
 import { updateTimelineItem } from '../timeline-items'
+import { now } from '../time'
 
 const props = defineProps({
   timelineItem: {
@@ -19,8 +20,13 @@ const props = defineProps({
 
 const { seconds, isRunning, start, stop, reset } = useStopwatch(props.timelineItem.activitySeconds)
 
-watchEffect(() => updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value }))
+watchEffect(() => {
+  if (props.timelineItem.hour !== now.value.getHours() && isRunning.value) {
+    stop()
+  }
+})
 
+watchEffect(() => updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value }))
 </script>
 
 <template>
@@ -37,7 +43,7 @@ watchEffect(() => updateTimelineItem(props.timelineItem, { activitySeconds: seco
     <BaseButton
       v-else
       :type="BUTTON_TYPE_SUCCESS"
-      :disabled="timelineItem.hour !== currentHour()"
+      :disabled="timelineItem.hour !== now.getHours()"
       @click="start"
     >
       <BaseIcon :name="ICON_PLAY" />
