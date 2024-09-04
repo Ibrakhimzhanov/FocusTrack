@@ -17,7 +17,7 @@ const props = defineProps({
 function handleClick() {
   currentPage.value === PAGE_TIMELINE && props.navItem.page === PAGE_TIMELINE
     ? scrollToCurrentHour(true)
-    : navigate(PAGE_TIMELINE)
+    : navigate(props.navItem.page)
 }
 
 const classes = computed(() => [

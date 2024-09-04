@@ -1,10 +1,10 @@
 <script setup>
-import { watchEffect } from 'vue'
+import { onMounted, watch, watchEffect } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 import BaseButton from './BaseButton.vue'
 import { ICON_ARROW_PATH, ICON_PAUSE, ICON_PLAY } from '../icons'
 import { BUTTON_TYPE_SUCCESS, BUTTON_TYPE_WARNING, BUTTON_TYPE_DANGER } from '../constants'
-import { currentHour, formatSeconds } from '../functions'
+import { formatSeconds } from '../functions'
 import { isTimelineItemValid } from '../validators'
 import { useStopwatch } from '../composables/stopwatch'
 import { updateTimelineItem } from '../timeline-items'
@@ -26,7 +26,23 @@ watchEffect(() => {
   }
 })
 
-watchEffect(() => updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value }))
+onMounted(() => {
+  if (props.timelineItem.isActive) {
+    start()
+  }
+})
+
+watchEffect(() =>
+  updateTimelineItem(props.timelineItem, {
+    activitySeconds: seconds.value
+  })
+)
+
+watch(isRunning, () => {
+  updateTimelineItem(props.timelineItem, {
+    isActive: Boolean(isRunning.value)
+  })
+})
 </script>
 
 <template>
