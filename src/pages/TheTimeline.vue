@@ -6,19 +6,16 @@ import {
   scrollToHour,
   timelineItems,
   timelineItemRefs,
-  scrollToCurrentHour,
-  stopTimelineItemTimer
+  scrollToCurrentHour
 } from '../timeline-items'
-import { startTimer, stopTimer } from '../time'
-
-stopTimelineItemTimer()
+import { startCurrentDateTimer, stopCurrentDateTimer } from '../time'
 
 onActivated(() => {
   scrollToCurrentHour()
-  startTimer()
+  startCurrentDateTimer()
 })
 
-onDeactivated(stopTimer)
+onDeactivated(stopCurrentDateTimer)
 </script>
 <template>
   <div class="relative mt-7">

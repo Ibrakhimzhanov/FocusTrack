@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 export function useStopwatch(initialSeconds) {
   const seconds = ref(initialSeconds)
+
   const isRunning = ref(false)
   const temp = 1
 
@@ -30,3 +31,4 @@ export function useStopwatch(initialSeconds) {
     reset
   }
 }
+

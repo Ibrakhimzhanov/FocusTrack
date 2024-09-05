@@ -1,10 +1,14 @@
-import { ref } from 'vue'
-import { HOURS_IN_DAY, MIDNIGHT_HOUR, MILLISECONDS_IN_SECOND } from './constants'
+import { computed, ref } from 'vue'
+import { HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants'
 import { now } from './time'
 
 export const timelineItemRefs = ref([])
 
 export const timelineItems = ref(generateTimelineItems())
+
+export const activeTimelineItem = computed(() =>
+  timelineItems.value.find(({ isActive }) => isActive)
+)
 
 export function updateTimelineItem(timelineItem, fields) {
   return Object.assign(timelineItem, fields)
@@ -34,24 +38,6 @@ export function scrollToHour(hour, isSmooth = true) {
   el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })
 }
 
-let timelineItemTimer = null
-
-export function startTimelineItemTimer(activityTimelineItem) {
-  timelineItemTimer = setInterval(() => {
-    updateTimelineItem(activityTimelineItem, {
-      activitySeconds: activityTimelineItem.activitySeconds + 1
-    })
-  }, MILLISECONDS_IN_SECOND)
-}
-
-export function stopTimelineItemTimer() {
-  clearInterval(timelineItemTimer)
-}
-
-export function findActiveTimelineItem() {
-  return timelineItems.value.find(({ isActive }) => isActive)
-}
-
 function filterTimelineItemsByActivity(timelineItems, { id }) {
   return timelineItems.filter(({ activityId }) => activityId === id)
 }
@@ -59,8 +45,8 @@ function filterTimelineItemsByActivity(timelineItems, { id }) {
 function generateTimelineItems() {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
-    activityId: null, //[0, 1, 2, 3, 4].includes(hour) ? activities.value[hour % 3].id : null,
-    activitySeconds: 0, //[0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
+    activityId: null, 
+    activitySeconds: 0,
     isActive: false
   }))
 }
