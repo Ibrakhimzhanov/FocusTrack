@@ -1,5 +1,4 @@
 <script setup>
-
 import BaseButton from './BaseButton.vue'
 import BaseSelect from './BaseSelect.vue'
 import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '../constants'
@@ -21,7 +20,6 @@ function deleteAndResetActivity(activity) {
   resetTimelineItemActivities(timelineItems.value, activity)
   deleteActivity(activity)
 }
-
 </script>
 <template>
   <li class="flex flex-col gap-2 p-4">

@@ -1,4 +1,4 @@
-import { 
+import {
   CheckCircleIcon as CheckCircle,
   ListBulletIcon as ListBullet,
   ArrowPathIcon as ArrowPath,
@@ -9,7 +9,7 @@ import {
   PauseIcon as Pause,
   PlayIcon as Play,
   PlusIcon as Plus
- } from '@heroicons/vue/24/outline'
+} from '@heroicons/vue/24/outline'
 
 export const ICON_CHECK_CIRCLE = 'CheckCircle'
 export const ICON_LIST_BULLET = 'ListBullet'
@@ -33,4 +33,4 @@ export const ICONS = {
   [ICON_PAUSE]: Pause,
   [ICON_PLAY]: Play,
   [ICON_PLUS]: Plus
- }
+}

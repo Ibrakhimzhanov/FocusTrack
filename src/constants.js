@@ -1,12 +1,11 @@
 import { ICON_CHART_BAR, ICON_CLOCK, ICON_LIST_BULLET } from './icons'
 import { generatePeriodSelectOptions } from './functions'
 
-export const APP_NAME = 'focustrack' 
+export const APP_NAME = 'focustrack'
 
 export const PAGE_TIMELINE = 'timeline'
 export const PAGE_ACTIVITIES = 'activities'
 export const PAGE_PROGRESS = 'progress'
-
 
 export const NAV_ITEMS = [
   {
@@ -20,7 +19,7 @@ export const NAV_ITEMS = [
   {
     page: PAGE_PROGRESS,
     icon: ICON_CHART_BAR
-  },
+  }
 ]
 
 export const BUTTON_TYPE_PRIMARY = 'primary'
@@ -50,4 +49,3 @@ export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions()
 export const LOW_PERCENT = 33
 export const MEDIUM_PERCENT = 66
 export const HUNDRED_PERCENT = 100
-

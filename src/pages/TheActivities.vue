@@ -2,9 +2,7 @@
 import ActivityItem from '@/components/ActivityItem.vue'
 import TheActivityForm from '@/components/TheActivityForm.vue'
 import TheActivitiesEmptyState from '@/components/TheActivitiesEmptyState.vue'
-import { activities } from '../activities';
-
-
+import { activities } from '../activities'
 </script>
 <template>
   <div class="flex grow flex-col">
@@ -17,6 +15,6 @@ import { activities } from '../activities';
       />
     </ul>
     <TheActivitiesEmptyState v-else />
-    <TheActivityForm/>
+    <TheActivityForm />
   </div>
 </template>

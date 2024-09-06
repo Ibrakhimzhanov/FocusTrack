@@ -2,7 +2,7 @@ import { BUTTON_TYPES, HOURS_IN_DAY, MIDNIGHT_HOUR, NAV_ITEMS } from './constant
 import { ICONS } from './icons'
 
 export function isPageValid(page) {
-  return NAV_ITEMS.some(navItems => navItems.page === page)
+  return NAV_ITEMS.some((navItems) => navItems.page === page)
 }
 
 export function isIconValid(icon) {
@@ -14,10 +14,6 @@ export function isNavItemValid(navItem) {
 }
 export function isButtonTypeValid(type) {
   return BUTTON_TYPES.includes(type)
-}
-
-export function validateTimelineItems(timelineItems) {
-  return timelineItems.every(isTimelineItemValid)
 }
 
 export function isTimelineItemValid({ hour }) {
@@ -38,27 +34,27 @@ export function isUndefinedOrNull(value) {
 export function isSelectValueValid(value) {
   return isNotEmptyString(value) || isNumberOrNull(value)
 }
-export function isNumberOrNull(value) {
-  return isNumber(value) || isNull(value)
-}
 
-export function validateActivities(activities) {
-  return activities.every(isActivityValid)
-}
 export function isActivityValid({ id, name, secondsToComplete }) {
   if (isNull(id)) {
     return true
   }
   return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
 }
-export function isUndefined(value) {
-  return value === undefined
-}
 
 export function isNull(value) {
   return value === null
 }
-export function isNumber(value) {
+
+function isNumberOrNull(value) {
+  return isNumber(value) || isNull(value)
+}
+
+function isUndefined(value) {
+  return value === undefined
+}
+
+function isNumber(value) {
   return typeof value === 'number'
 }
 

@@ -36,6 +36,10 @@ export function updateActivity(activity, fields) {
   return Object.assign(activity, fields)
 }
 
+export function initializeActivities(state) {
+  activities.value = state.activities || []
+}
+
 export function createActivity(activity) {
   activities.value.push(activity)
 }

@@ -6,7 +6,9 @@ import { calculateTrackedActivitySeconds, timelineItems } from '../timeline-item
 export function useTotalProgress() {
   const colorClass = computed(() => getProgressColorClass(percentage.value))
 
-  const percentage = computed(() => calculateCompletionPercentage(totaltrackedActivitySeconds.value))
+  const percentage = computed(() =>
+    calculateCompletionPercentage(totaltrackedActivitySeconds.value)
+  )
 
   const totaltrackedActivitySeconds = computed(() => {
     return trackedActivities.value

@@ -1,12 +1,14 @@
-import { ref, watchEffect } from "vue"
-import { activeTimelineItem, updateTimelineItem } from "./timeline-items"
-import { now } from "./time"
-import { MILLISECONDS_IN_SECOND } from "./constants"
+import { ref } from 'vue'
+import { activeTimelineItem, updateTimelineItem } from './timeline-items'
+import { MILLISECONDS_IN_SECOND } from './constants'
 
-export const timelineItemTimer = ref(false)
+const timelineItemTimer = ref(false)
+
 
 
 export function startTimelineItemTimer(timelineItem) {
+  timelineItem = timelineItem ?? activeTimelineItem.value
+
   updateTimelineItem(timelineItem, { isActive: true })
   timelineItemTimer.value = setInterval(() => {
     updateTimelineItem(timelineItem, {
@@ -15,8 +17,8 @@ export function startTimelineItemTimer(timelineItem) {
   }, MILLISECONDS_IN_SECOND)
 }
 
-export function stopTimelineItemTimer(timelineItem) {
-  updateTimelineItem(timelineItem, { isActive: false })
+export function stopTimelineItemTimer() {
+  updateTimelineItem(activeTimelineItem.value, { isActive: false })
 
   clearInterval(timelineItemTimer.value)
 
@@ -26,12 +28,7 @@ export function stopTimelineItemTimer(timelineItem) {
 export function resetTimelineItemTimer(timelineItem) {
   updateTimelineItem(timelineItem, { activitySeconds: 0 })
 
-  stopTimelineItemTimer(timelineItem)
-
-}
-
-watchEffect(() => {
-  if (activeTimelineItem.value && activeTimelineItem.value.hour !== now.value.getHours()) {
-    stopTimelineItemTimer(activeTimelineItem.value)
+  if (activeTimelineItem.value) {
+    stopTimelineItemTimer()
   }
-})
+}

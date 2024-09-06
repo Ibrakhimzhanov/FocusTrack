@@ -1,37 +1,29 @@
-import { activities } from './activities'
+import { activities, initializeActivities } from './activities'
 import { APP_NAME } from './constants'
-import { endOfHour, isToday, today, toSeconds } from './time'
+import { today } from './time'
 import { startTimelineItemTimer, stopTimelineItemTimer } from './timeline-item-timer'
-import { activeTimelineItem, timelineItems } from './timeline-items'
-
+import { activeTimelineItem, initilizeTimileItems, timelineItems } from './timeline-items'
 
 export function syncState(shouldLoad = true) {
   shouldLoad ? loadState() : saveState()
 
   if (activeTimelineItem.value) {
-    shouldLoad
-      ? startTimelineItemTimer(activeTimelineItem.value)
-      : stopTimelineItemTimer(activeTimelineItem.value)
+    shouldLoad ? startTimelineItemTimer() : stopTimelineItemTimer()
   }
 }
 
+function loadState() {
+  const state = loadFromLocalStorage()
 
-
-export function loadState() {
-  const serializedState = localStorage.getItem(APP_NAME)
-
-  const state = serializedState ? JSON.parse(serializedState) : {}
-
-  activities.value = state.activities || activities.value
-
-  const lastActiveAt = new Date(state.lastActiveAt)
-
-  timelineItems.value = isToday(lastActiveAt)
-    ? syncIdleSeconds(state.timelineItems, lastActiveAt)
-    : timelineItems.value
+  initializeActivities(state)
+  initilizeTimileItems(state)
 }
 
-export function saveState() {
+function loadFromLocalStorage() {
+  return JSON.parse(localStorage.getItem(APP_NAME) ?? '{}')
+}
+
+function saveState() {
   localStorage.setItem(
     APP_NAME,
     JSON.stringify({
@@ -40,20 +32,4 @@ export function saveState() {
       lastActiveAt: today()
     })
   )
-}
-
-function syncIdleSeconds(timelineItems, lastActiveAt) {
-  const activeTimelineItem = timelineItems.find(({ isActive }) => isActive)
-
-  if (activeTimelineItem) {
-    activeTimelineItem.activitySeconds += calculateIdleSeconds(lastActiveAt)
-  }
-
-  return timelineItems
-}
-
-function calculateIdleSeconds(lastActiveAt) {
-  return lastActiveAt.getHours() === today().getHours()
-    ? toSeconds(today() - lastActiveAt)
-    : toSeconds(endOfHour(lastActiveAt) - lastActiveAt)
 }
